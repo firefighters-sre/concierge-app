@@ -23,6 +23,6 @@ public class AccessLogService {
     }
 
     public List<AccessLog> listAll() {
-        return AccessLog.listAll(Sort.by("horaEntrada").ascending());
+        return AccessLog.listAll(Sort.by("entryTime").ascending());
     }
 }

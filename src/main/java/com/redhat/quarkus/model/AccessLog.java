@@ -3,62 +3,62 @@ package com.redhat.quarkus.model;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 
-@MongoEntity(collection="AccessLog")
+@MongoEntity(collection = "AccessLog")
 public class AccessLog extends PanacheMongoEntity {
-    private Long registroId;
-    private Long pessoaId;
-    private String horaEntrada;
-    private String horaSaída;
-    private String destino;
+    private Long recordId;
+    private Long personId;
+    private String entryTime;
+    private String exitTime;
+    private String destination;
 
-    public Long getRegistroId() {
-        return registroId;
+    public Long getRecordId() {
+        return recordId;
     }
 
-    public void setRegistroId(Long registroId) {
-        this.registroId = registroId;
+    public void setRecordId(Long recordId) {
+        this.recordId = recordId;
     }
 
-    public Long getPessoaId() {
-        return pessoaId;
+    public Long getPersonId() {
+        return personId;
     }
 
-    public void setPessoaId(Long pessoaId) {
-        this.pessoaId = pessoaId;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
-    public String getHoraEntrada() {
-        return horaEntrada;
+    public String getEntryTime() {
+        return entryTime;
     }
 
-    public void setHoraEntrada(String horaEntrada) {
-        this.horaEntrada = horaEntrada;
+    public void setEntryTime(String entryTime) {
+        this.entryTime = entryTime;
     }
 
-    public String getHoraSaída() {
-        return horaSaída;
+    public String getExitTime() {
+        return exitTime;
     }
 
-    public void setHoraSaída(String horaSaída) {
-        this.horaSaída = horaSaída;
+    public void setExitTime(String exitTime) {
+        this.exitTime = exitTime;
     }
 
-    public String getDestino() {
-        return destino;
+    public String getDestination() {
+        return destination;
     }
 
-    public void setDestino(String destino) {
-        this.destino = destino;
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     @Override
     public String toString() {
         return "AccessLog{" +
-                "registroId=" + registroId +
-                ", pessoaId=" + pessoaId +
-                ", horaEntrada='" + horaEntrada + '\'' +
-                ", horaSaída='" + horaSaída + '\'' +
-                ", destino='" + destino + '\'' +
+                "recordId=" + recordId +
+                ", personId=" + personId +
+                ", entryTime='" + entryTime + '\'' +
+                ", exitTime='" + exitTime + '\'' +
+                ", destination='" + destination + '\'' +
                 '}';
     }
 }
