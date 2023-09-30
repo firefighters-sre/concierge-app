@@ -3,7 +3,7 @@ package com.redhat.quarkus.model;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 
-@MongoEntity(collection = "AccessLog")
+@MongoEntity(database = "firefighters", collection = "AccessLog")
 public class AccessLog extends PanacheMongoEntity {
     private Long recordId;
     private Long personId;

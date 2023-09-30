@@ -25,4 +25,9 @@ public class AccessLogService {
     public List<AccessLog> listAll() {
         return AccessLog.listAll(Sort.by("entryTime").ascending());
     }
+
+    public AccessLog createAccessLog(AccessLog accessLog) {
+        accessLogRepository.persist(accessLog);
+        return accessLog;
+    }
 }
