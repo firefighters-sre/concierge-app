@@ -1,5 +1,0 @@
-META-INF/panache-archive.marker
-com/redhat/quarkus/repository/AccessLogRepository.class
-com/redhat/quarkus/model/AccessLog.class
-com/redhat/quarkus/service/AccessLogService.class
-com/redhat/quarkus/resources/AccessLogResource.class
