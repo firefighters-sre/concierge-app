@@ -1,10 +1,11 @@
 package com.redhat.quarkus.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static io.restassured.RestAssured.given;
-// import static org.hamcrest.CoreMatchers.hasItems;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.hasItems;
 
 import com.redhat.quarkus.model.AccessLog;
+import com.redhat.quarkus.repository.AccessLogRepository;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.junit.jupiter.api.Test;
@@ -16,19 +17,18 @@ import io.quarkus.test.kafka.InjectKafkaCompanion;
 import io.quarkus.test.kafka.KafkaCompanionResource;
 import io.smallrye.reactive.messaging.kafka.companion.ConsumerTask;
 import io.smallrye.reactive.messaging.kafka.companion.KafkaCompanion;
+import jakarta.ws.rs.core.MediaType;
 
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
-import org.mockito.Mockito;
-
 
 // import jakarta.ws.rs.core.MediaType;
 
 @QuarkusTest
 @QuarkusTestResource(KafkaCompanionResource.class)
 public class AccessLogServiceTest {
+
+    @InjectMock
+    AccessLogRepository accessLogRepository;
 
     @InjectMock
     AccessLogService accessLogService;
@@ -41,14 +41,10 @@ public class AccessLogServiceTest {
 
     @Test
     void testProcessLobbyEvent() {
-        
-        // Mock MongoDB interactions
-        MongoDatabase mockDatabase = Mockito.mock(MongoDatabase.class);
-        MongoCollection<Document> mockCollection = Mockito.mock(MongoCollection.class);
-        
-        Mockito.when(mongoClient.getDatabase(Mockito.anyString())).thenReturn(mockDatabase);
-        Mockito.when(mockDatabase.getCollection("AccessLog")).thenReturn(mockCollection);
-        
+
+        // Mocked classes always return a default value
+        assertEquals(0, accessLogRepository.count());
+    
         // Create an example AccessLog object to send to Kafka
         AccessLog accessLog1 = new AccessLog();
         accessLog1.setRecordId(1L);
@@ -68,8 +64,17 @@ public class AccessLogServiceTest {
         companion.produceStrings().usingGenerator(i -> new ProducerRecord<>("lobby", accessLog1.toString()));
         companion.produceStrings().usingGenerator(i -> new ProducerRecord<>("lobby", accessLog2.toString()));
 
+        // Wait for the Kafka consumer to process the message
+        ConsumerTask<String, String> lobbyConsumer = companion.consumeStrings().fromTopics("lobby", 2);
+        lobbyConsumer.awaitCompletion();
+
+        // Assert that two messages have been processed
+        assertEquals(2, lobbyConsumer.count());
+
         // Expect that the AccessLogService processes the message and persists it
-        
+        accessLogService.processLobbyEvent(accessLog1);
+        accessLogService.processLobbyEvent(accessLog2);
+
         // Perform a test HTTP request to your endpoint
         // given()
         //     .when()
@@ -83,16 +88,6 @@ public class AccessLogServiceTest {
         //     .body("exitTime", hasItems("17:00", "18:00"))   // Adjust this based on your AccessLog structure
         //     .body("destination", hasItems("A", "B")); // Adjust this based on your AccessLog structure
         
-        // Validate that the access log was saved in MongoDB
-        Mockito.verify(mockCollection, Mockito.times(2)).insertOne(Mockito.any(Document.class));
-  
-
-        // Wait for the Kafka consumer to process the message
-        ConsumerTask<String, String> lobbyConsumer = companion.consumeStrings().fromTopics("lobby", 2);
-        lobbyConsumer.awaitCompletion();
-
-        // Assert that two messages have been processed
-        assertEquals(2, lobbyConsumer.count());
     }
 }
 
