@@ -12,6 +12,7 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 [X] **Store Access Log**: Save the access log entries into the database under the `AccessLog` table.
 [X] **Retrieve Access Logs**: Implement functionality to fetch access logs from the `AccessLog` table.
 [] **Automatic AccessLog ID Generation**: For every new access log entry, generate a unique identifier automatically.
+[] **Prometheus Metrics**: Export prometheus metrics.
 [] **Process Kafka `registration` Topic Events**: Capture and process events from the Kafka topic named `registration`.
 [] **Store Person Information**: Save the person's data into the database under the `Person` table.
 [] **Automatic Person ID Generation**: For every new person's data, generate a unique identifier automatically.
