@@ -1,8 +1,8 @@
 package com.redhat.quarkus.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.hasItems;
+// import static io.restassured.RestAssured.given;
+// import static org.hamcrest.CoreMatchers.hasItems;
 
 import com.redhat.quarkus.model.AccessLog;
 
@@ -17,7 +17,7 @@ import io.quarkus.test.kafka.KafkaCompanionResource;
 import io.smallrye.reactive.messaging.kafka.companion.ConsumerTask;
 import io.smallrye.reactive.messaging.kafka.companion.KafkaCompanion;
 
-import jakarta.ws.rs.core.MediaType;
+// import jakarta.ws.rs.core.MediaType;
 
 @QuarkusTest
 @QuarkusTestResource(KafkaCompanionResource.class)
