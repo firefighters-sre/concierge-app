@@ -8,15 +8,15 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 - **Data Management**: It stores processed information in a structured manner within the database, ensuring data integrity and consistency.
 - **Unique Identifier Generation**: For every new entity, be it a person or an access log, the application automatically generates a unique identifier ensuring smooth data retrieval.
 ## TODO List
-[X] **Process Kafka `lobby` Topic Events**: Capture and process events from the Kafka topic named `lobby`.
-[X] **Store Access Log**: Save the access log entries into the database under the `AccessLog` table.
-[X] **Retrieve Access Logs**: Implement functionality to fetch access logs from the `AccessLog` table.
-[] **Automatic AccessLog ID Generation**: For every new access log entry, generate a unique identifier automatically.
-[] **Prometheus Metrics**: Export prometheus metrics.
-[] **Process Kafka `registration` Topic Events**: Capture and process events from the Kafka topic named `registration`.
-[] **Store Person Information**: Save the person's data into the database under the `Person` table.
-[] **Automatic Person ID Generation**: For every new person's data, generate a unique identifier automatically.
-[] **Retrieve Person Information**: Implement functionality to fetch details about a person from the `Person` table.
+- [X] **Process Kafka `lobby` Topic Events**: Capture and process events from the Kafka topic named `lobby`.
+- [X] **Store Access Log**: Save the access log entries into the database under the `AccessLog` table.
+- [X] **Retrieve Access Logs**: Implement functionality to fetch access logs from the `AccessLog` table.
+- [ ] **Automatic AccessLog ID Generation**: For every new access log entry, generate a unique identifier automatically.
+- [ ] **Prometheus Metrics**: Export prometheus metrics.
+- [ ] **Process Kafka `registration` Topic Events**: Capture and process events from the Kafka topic named `registration`.
+- [ ] **Store Person Information**: Save the person's data into the database under the `Person` table.
+- [ ] **Automatic Person ID Generation**: For every new person's data, generate a unique identifier automatically.
+- [ ] **Retrieve Person Information**: Implement functionality to fetch details about a person from the `Person` table.
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
