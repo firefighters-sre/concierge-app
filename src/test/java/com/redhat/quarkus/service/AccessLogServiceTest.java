@@ -9,6 +9,8 @@ import java.util.Properties;
 import jakarta.inject.Inject;
 
 import com.redhat.quarkus.model.AccessLog;
+import com.redhat.quarkus.model.MoveLog;
+
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -33,11 +35,11 @@ public class AccessLogServiceTest {
     Map<String, Object> kafkaConfig;
 
     KafkaProducer<String, AccessLog> logProducer;
-    KafkaConsumer<String, AccessLog> logConsumer;
+    KafkaConsumer<String, MoveLog> logConsumer;
 
     @BeforeEach
     void setUp() {
-        logConsumer = new KafkaConsumer<>(consumerConfig(), new StringDeserializer(), new ObjectMapperDeserializer<>(AccessLog.class));
+        logConsumer = new KafkaConsumer<>(consumerConfig(), new StringDeserializer(), new ObjectMapperDeserializer<>(MoveLog.class));
         logProducer = new KafkaProducer<>(kafkaConfig, new StringSerializer(), new ObjectMapperSerializer());
     }
 
@@ -70,13 +72,10 @@ public class AccessLogServiceTest {
 
         logProducer.send(new ProducerRecord<>("lobby", logToSend));
 
-        ConsumerRecords<String, AccessLog> records = logConsumer.poll(Duration.ofMillis(10000));
-        AccessLog receivedLog = records.records("entrance").iterator().next().value();
-
-        assertEquals(logToSend.getRecordId(), receivedLog.getRecordId()); 
+        ConsumerRecords<String, MoveLog> records = logConsumer.poll(Duration.ofMillis(10000));
+        MoveLog receivedLog = records.records("entrance").iterator().next().value();
+ 
         assertEquals(logToSend.getPersonId(), receivedLog.getPersonId()); 
-        assertEquals(logToSend.getEntryTime(), receivedLog.getEntryTime()); 
-        assertEquals(logToSend.getExitTime(), receivedLog.getExitTime()); 
         assertEquals(logToSend.getDestination(), receivedLog.getDestination()); 
     }
 }
