@@ -1,10 +1,6 @@
 package com.redhat.quarkus.model;
 
-import io.quarkus.mongodb.panache.common.MongoEntity;
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
-
-@MongoEntity(database = "firefighters", collection = "AccessLog")
-public class AccessLog extends PanacheMongoEntity {
+public class AccessLog {
     private Long recordId;
     private Long personId;
     private String entryTime;

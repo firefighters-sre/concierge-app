@@ -20,13 +20,4 @@ public class AccessLogResource {
     @Inject
     AccessLogService accessLogService;
 
-    @GET
-    public List<AccessLog> list() {
-        return accessLogService.listAll();
-    }
-
-    @POST
-    public AccessLog createAccessLog(AccessLog accessLog) {
-        return accessLogService.createAccessLog(accessLog);
-    }
 }
