@@ -10,8 +10,8 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 ## TODO List
 - [X] **Process Kafka `AccesLog` in `lobby` Topic Events**: Capture and process events from the Kafka topic named `lobby`.
 - [ ] **Deliver `MoveLog` to Kafka `entrance` Topic**: Send processed messages to the Kafka topic named `entrance`.
-- [X] **Store Access Log**: Save the access log entries into the database under the `AccessLog` table.
-- [X] **Retrieve Access Logs**: Implement functionality to fetch access logs from the `AccessLog` table.
+- [ ] **Store Access Log**: Save the access log entries into the database under the `AccessLog` table.
+- [ ] **Retrieve Access Logs**: Implement functionality to fetch access logs from the `AccessLog` table.
 - [ ] **Automatic AccessLog ID Generation**: For every new access log entry, generate a unique identifier automatically.
 - [ ] **Prometheus Metrics**: Export prometheus metrics.
 - [ ] **Process Kafka `registration` Topic Events**: Capture and process events from the Kafka topic named `registration`.
