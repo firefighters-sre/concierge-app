@@ -5,6 +5,7 @@ import com.redhat.quarkus.repository.AccessLogRepository;
 import io.quarkus.panache.common.Sort;
 import io.smallrye.reactive.messaging.annotations.Blocking;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.List;
@@ -17,9 +18,11 @@ public class AccessLogService {
     AccessLogRepository accessLogRepository;
 
     @Incoming("lobby")
+    @Outgoing("entrance")
     @Blocking
-    public void processLobbyEvent(AccessLog accessLog) {
-        accessLogRepository.persist(accessLog);
+    public AccessLog processLobbyEvent(AccessLog accessLog) throws InterruptedException {
+        // accessLogRepository.persist(accessLog);
+        return accessLog;
     }
 
     public List<AccessLog> listAll() {

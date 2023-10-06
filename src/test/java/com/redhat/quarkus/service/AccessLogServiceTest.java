@@ -1,95 +1,79 @@
 package com.redhat.quarkus.service;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.hasItems;
+
+import java.time.Duration;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Properties;
+import java.util.UUID;
+
+import jakarta.inject.Inject;
 
 import com.redhat.quarkus.model.AccessLog;
-import com.redhat.quarkus.repository.AccessLogRepository;
-
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.common.serialization.StringSerializer;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import io.quarkus.test.InjectMock;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.kafka.client.serialization.ObjectMapperDeserializer;
+import io.quarkus.kafka.client.serialization.ObjectMapperSerializer;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.kafka.InjectKafkaCompanion;
-import io.quarkus.test.kafka.KafkaCompanionResource;
-import io.smallrye.reactive.messaging.kafka.companion.ConsumerTask;
-import io.smallrye.reactive.messaging.kafka.companion.KafkaCompanion;
-import jakarta.ws.rs.core.MediaType;
-
-import com.mongodb.client.MongoClient;
-
-// import jakarta.ws.rs.core.MediaType;
+import io.smallrye.common.annotation.Identifier;
 
 @QuarkusTest
-@QuarkusTestResource(KafkaCompanionResource.class)
 public class AccessLogServiceTest {
 
-    @InjectMock
-    AccessLogRepository accessLogRepository;
+    @Inject
+    @Identifier("default-kafka-broker")
+    Map<String, Object> kafkaConfig;
 
-    @InjectMock
-    AccessLogService accessLogService;
+    KafkaProducer<String, AccessLog> logProducer;
+    KafkaConsumer<String, AccessLog> logConsumer;
 
-    @InjectMock
-    MongoClient mongoClient;
+    @BeforeEach
+    void setUp() {
+        logConsumer = new KafkaConsumer<>(consumerConfig(), new StringDeserializer(), new ObjectMapperDeserializer<>(AccessLog.class));
+        logProducer = new KafkaProducer<>(kafkaConfig, new StringSerializer(), new ObjectMapperSerializer());
+    }
 
-    @InjectKafkaCompanion
-    KafkaCompanion companion;
+    @AfterEach
+    void tearDown() {
+        logProducer.close();
+        logConsumer.close();
+    }
+
+    Properties consumerConfig() {
+        Properties properties = new Properties();
+        properties.putAll(kafkaConfig);
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "test-log-group-id");
+        properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
+        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        return properties;
+    }
 
     @Test
     void testProcessLobbyEvent() {
-    
+        logConsumer.subscribe(Collections.singleton("entrance"));
+
         // Create an example AccessLog object to send to Kafka
-        AccessLog accessLog1 = new AccessLog();
-        accessLog1.setRecordId(1L);
-        accessLog1.setPersonId(1L);
-        accessLog1.setEntryTime("09:00");
-        accessLog1.setExitTime("17:00");
-        accessLog1.setDestination("A");
+        AccessLog logToSend = new AccessLog();
+        logToSend.setRecordId(1L);
+        logToSend.setPersonId(1L);
+        logToSend.setEntryTime("09:00");
+        logToSend.setExitTime("17:00");
+        logToSend.setDestination("A");
 
-        AccessLog accessLog2 = new AccessLog();
-        accessLog2.setRecordId(2L);
-        accessLog2.setPersonId(2L);
-        accessLog2.setEntryTime("10:00");
-        accessLog2.setExitTime("18:00");
-        accessLog2.setDestination("B");
+        logProducer.send(new ProducerRecord<>("lobby", logToSend));
 
-        // Produce the AccessLog object to Kafka
-        companion.produceStrings().usingGenerator(i -> new ProducerRecord<>("lobby", accessLog1.toString()));
-        companion.produceStrings().usingGenerator(i -> new ProducerRecord<>("lobby", accessLog2.toString()));
+        ConsumerRecords<String, AccessLog> records = logConsumer.poll(Duration.ofMillis(10000));
+        AccessLog receivedLog = records.records("entrance").iterator().next().value();
 
-        // Wait for the Kafka consumer to process the message
-        ConsumerTask<String, String> lobbyConsumer = companion.consumeStrings().fromTopics("lobby", 2);
-        lobbyConsumer.awaitCompletion();
-
-        // Assert that two messages have been processed
-        assertEquals(2, lobbyConsumer.count());
-
-        // Expect that the AccessLogService processes the message and persists it
-        // accessLogService.processLobbyEvent(accessLog1);
-        // accessLogService.processLobbyEvent(accessLog2);
-        
-         // Verify that the persist method on the mocked accessLogRepository was called
-        //  Mockito.verify(accessLogRepository, Mockito.times(1)).persist(accessLog1);
-
-        // Perform a test HTTP request to your endpoint
-        // given()
-        //     .when()
-        //     .get("/accesslog")
-        //     .then()
-        //     .statusCode(200)
-        //     .contentType(MediaType.APPLICATION_JSON)
-        //     .body("recordId", hasItems(1, 2)) // Adjust this based on your AccessLog structure
-        //     .body("personId", hasItems(1, 2))   // Adjust this based on your AccessLog structure
-        //     .body("entryTime", hasItems("09:00", "10:00")) // Adjust this based on your AccessLog structure
-        //     .body("exitTime", hasItems("17:00", "18:00"))   // Adjust this based on your AccessLog structure
-        //     .body("destination", hasItems("A", "B")); // Adjust this based on your AccessLog structure
-        
+        assertEquals(logToSend, receivedLog); // You might want to adjust the comparison based on what fields you set on the AccessLog
     }
 }
-
-
