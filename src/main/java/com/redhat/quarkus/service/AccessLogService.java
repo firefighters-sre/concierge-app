@@ -17,8 +17,7 @@ public class AccessLogService {
         MoveLog moveLog = new MoveLog();
         moveLog.setDestination(accessLog.getDestination());
         moveLog.setPersonId(accessLog.getPersonId());
-        //TODO: Set preferred route
-        //moveLog.setPreferredRoute(preferredRoute);
+        moveLog.setPreferredRoute("elevator");
         return moveLog;
     }
 

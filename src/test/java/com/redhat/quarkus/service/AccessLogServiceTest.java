@@ -77,5 +77,6 @@ public class AccessLogServiceTest {
  
         assertEquals(logToSend.getPersonId(), receivedLog.getPersonId()); 
         assertEquals(logToSend.getDestination(), receivedLog.getDestination()); 
+        assertEquals("elevator", receivedLog.getPreferredRoute()); 
     }
 }
