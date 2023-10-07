@@ -9,7 +9,9 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 - **Unique Identifier Generation**: For every new entity, be it a person or an access log, the application automatically generates a unique identifier ensuring smooth data retrieval.
 ## TODO List
 - [X] **Process Kafka `AccesLog` in `lobby` Topic Events**: Capture and process events from the Kafka topic named `lobby`.
-- [ ] **Deliver `MoveLog` to Kafka `entrance` Topic**: Send processed messages to the Kafka topic named `entrance`.
+- [X] **Enhance `MoveLog` with `preferredRoute` Attribute**: Add a preferredRoute attribute to the MoveLog class.
+- [X] **Deliver `MoveLog` to Kafka `entrance` Topic**: Send processed messages to the Kafka topic named `entrance`.
+### 1.1
 - [ ] **Store Access Log**: Save the access log entries into the database under the `AccessLog` table.
 - [ ] **Retrieve Access Logs**: Implement functionality to fetch access logs from the `AccessLog` table.
 - [ ] **Automatic AccessLog ID Generation**: For every new access log entry, generate a unique identifier automatically.
