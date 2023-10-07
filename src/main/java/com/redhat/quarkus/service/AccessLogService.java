@@ -18,6 +18,7 @@ public class AccessLogService {
         moveLog.setDestination(accessLog.getDestination());
         moveLog.setPersonId(accessLog.getPersonId());
         moveLog.setPreferredRoute("elevator");
+        System.out.println("Sending " + moveLog + "to Elevator" );
         return moveLog;
     }
 
