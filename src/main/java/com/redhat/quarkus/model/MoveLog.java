@@ -33,7 +33,7 @@ public void setPreferredRoute(String preferredRoute) {
   @Override
   public String toString() {
       return "MoveLog{" +
-              ", personId=" + personId +
+              "personId=" + personId +
               ", destination='" + destination + '\'' +
               ", preferredRoute='" + preferredRoute + '\'' +
               '}';
