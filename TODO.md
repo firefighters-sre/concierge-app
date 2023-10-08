@@ -29,16 +29,34 @@ The Concierge App is a Quarkus-based application primarily designed for managing
   - [X] **Availability SLA**: Implement a service credit system for downtime that falls below the agreed availability of 99.8% in a 10-minute window.
   - [X] **Latency SLA**: Implement a service credit for average response time exceeding 200ms for over an hour.
 ### 1.0.4
-- [ ] **SLO/SLA prevention Automation**: Implement automation routines to monitor and alert on SLO/SLA disruption. 
+- [X] **SLO/SLA prevention Automation**: Implement automation routines to monitor and alert on SLO/SLA disruption. 
+  - [X] **Automated Scaling**:
+    - [X] **Horizontal Pod Autoscaling (HPA)**: Dynamically scale the number of running pods based on observed CPU utilization or other select metrics.
+  - [X] **Self-Healing Systems**:
+    - [X] **Liveness and Readiness Probes**: Implement probes to check the health of the application and restart pods that are not responsive.
+    - [X] **PodDisruptionBudget (PDB)**: Ensure high availability during voluntary disruptions by defining the minimum available replicas.
 ### 1.0.5
-- [ ] **SLO/SLA related to the fire incident**:
+- [ ] **Implement SLOs, SLAs, and Alerts related to the fire incident**:
+  - [ ] **Evacuation Time SLO**: Ensure the average time taken to evacuate the building during a fire drill or incident does not exceed 5 minutes.
+  - [ ] **Exit Accessibility SLO**: Ensure that at least 90% of exits are accessible and clear during a fire incident.
+  - [ ] **Evacuation Time SLA**: If the average evacuation time exceeds 5 minutes during an incident, review and implement necessary changes in the evacuation protocol.
+  - [ ] **Exit Accessibility SLA**: Regular checks on exit routes to ensure they are clear. If more than 10% of exits are found blocked during a check, a review of the premises' maintenance protocol will be conducted.
+- [ ] **SLO/SLA fire incident prevention Automation**:
+  - [ ] **Automated Evacuation Drills**: Schedule and automate periodic fire drills to ensure the readiness of all individuals and validate the effectiveness of evacuation protocols.
+  - [ ] **Exit Monitoring Automation**: Implement sensors and cameras to monitor exit routes and ensure they remain clear. The system should automatically raise alerts if any blockages or obstructions are detected.
 ### 1.0.6
+- [ ] **Custom Metrics Scaling**: Implement scaling based on custom application-specific metrics.
+- [ ] **KEDA**:
+- [ ] **Capacity Forecasting**: Based on the number of individuals in the building, predict potential choke points during evacuation and adjust exit strategies accordingly.
+- [ ] **Capacity Planning & Resource Provisioning Automation**: Predict system resource constraints based on metrics (disk usage, memory consumption,CPU utilization) and automate provisioning processes accordingly. 
+### Backlog
+- [ ] **Data Availability SLO**: Ensure 99.99% uptime for the data retrieval system, especially during emergencies, to provide real-time data on individual whereabouts.
+- [ ] **Data Availability SLA**: Implement a backup and recovery mechanism to ensure that data is always available, especially during emergencies. Any downtime beyond 0.01% will require a review of data systems.
 - [ ] **Error Budget Automation**: Implement automation routines to monitor and alert on Error Budget consumption. This includes:
   - [ ] Automated reporting on Error Budget consumption.
   - [ ] Proactive alerts when approaching the Error Budget limit.
   - [ ] Triggering automated remediation actions if certain thresholds are crossed (e.g., rolling back a deployment).
   - [ ] Integration with CI/CD pipelines to halt new releases if the Error Budget is exceeded.
-### Backlog
 - [ ] **Throughput SLO**: Ensure the system handles at least 1000 API requests and processes at least 500 events per second.
 - [ ] **Data Accuracy SLO**: Ensure less than 0.01% discrepancy between input events and processed events' data.  
 - [ ] **Support Response Time SLA**: Implement a service credit system for failure to meet response times for various priority issues.
