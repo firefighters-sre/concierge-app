@@ -12,12 +12,12 @@ spec:
   groups:
   - name: {{ include "concierge-app.fullname" . }}.slas.rules
     rules:
-    # Availability: If uptime drops below 99.5% in a 24-hour window
+    # Availability SLA: If uptime drops below 99.8% in a 10-minute window, trigger an SLA breach alert.
     - alert: {{ include "concierge-app.fullname" . }} SLA Breach - Low Availability
       annotations:
-        message: '{{ include "concierge-app.fullname" . }} in namespace {{ .Values.namespace }} has breached the SLA for uptime over the past 24 hours.'
-      expr: (1 - avg_over_time(up{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[24h])) > 0.005
-      for: 1h
+        message: '{{ include "concierge-app.fullname" . }} in namespace {{ .Values.namespace }} has breached the SLA for uptime over the past 10 minutes.'
+      expr: (1 - avg_over_time(up{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[10m])) > 0.002
+      for: 1m
       labels:
         severity: {{ .Values.prometheus.slas.severity | default "critical" }}
 

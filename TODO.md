@@ -22,11 +22,11 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 - [X] **API Documentation**: Document all exposed APIs and endpoints for better clarity.
 - [X] **Health Endpoint Integration**: Integrated `smallrye-health` to provide health check endpoints for application monitoring.
 ### 1.0.3
-- [X] **Implement Basic SLOs, SLAs and Alerting**
-  - [X] **Availability SLO**: Ensure 99.9% uptime over a 30-day window and create Prometheus rules for alerting.
+- [X] **Implement Basic SLOs, SLAs, and Alerting**
+  - [X] **Availability SLO**: Ensure 99.9% uptime over a 10-minute window and create Prometheus rules for alerting.
   - [X] **Latency SLO**: Ensure API response times are under 200ms and event processing times are within 500ms.
   - [X] **Error Rate SLO**: Ensure less than 0.1% of all API requests result in errors.
-  - [X] **Availability SLA**: Implement a service credit system for downtime that falls below the agreed availability of 99.9%.
+  - [X] **Availability SLA**: Implement a service credit system for downtime that falls below the agreed availability of 99.8% in a 10-minute window.
   - [X] **Latency SLA**: Implement a service credit for average response time exceeding 200ms for over an hour.
 ### 1.0.4
 - [ ] **Error Budget Automation**: Implement automation routines to monitor and alert on Error Budget consumption. This includes:

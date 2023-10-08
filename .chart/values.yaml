@@ -30,13 +30,16 @@ istag:
 
 prometheus:
   namespace: kafka-logging
-  rules:
-    enabled: true
-    severity: warning
   servicemonitor:
     enabled: true
   podmonitor:
     enabled: false
+  slos:
+    enabled: true
+    severity: warning
+  slas:
+    enabled: false
+    severity: critical
 
 hpa:
   enabled: false

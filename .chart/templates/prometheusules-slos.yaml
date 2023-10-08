@@ -12,14 +12,14 @@ spec:
   groups:
   - name: {{ include "concierge-app.fullname" . }}.slos.rules
     rules:
-    # Availability: 99.5% uptime over a 1-day window.
-    - alert: {{ include "concierge-app.fullname" . }} Low Availability
+    # Availability: Ensures that the "concierge-app.fullname" has an uptime of 99.9% over a 10-minute window.
+    - alert: {{ include "concierge-app.fullname" . }} Availability Below Threshold
       annotations:
-        message: '{{ include "concierge-app.fullname" . }} in namespace {{ .Values.namespace }} has been unavailable for more than 0.5% over the past 24 hours.'
-      expr: (1 - avg_over_time(up{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[24h])) > 0.005
-      for: 30m
+        message: '{{ include "concierge-app.fullname" . }} in namespace {{ .Values.namespace }} has been unavailable for more than 0.1% in the last 10 minutes.'
+      expr: (1 - avg_over_time(up{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[10m])) > 0.001
+      for: 1m
       labels:
-        severity: {{ .Values.prometheus.slos.severity | default "critical" }}
+        severity: {{ .Values.prometheus.slos.severity | default "warning" }}
 
     # API Response Time: Average response time for API requests should be under 200ms.
     - alert: {{ include "concierge-app.fullname" . }} High API Response Time
