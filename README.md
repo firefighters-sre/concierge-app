@@ -7,26 +7,46 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 - **Event Processing**: The application listens to specific Kafka topics to capture and process relevant events.
 - **Data Management**: It stores processed information in a structured manner within the database, ensuring data integrity and consistency.
 - **Unique Identifier Generation**: For every new entity, be it a person or an access log, the application automatically generates a unique identifier ensuring smooth data retrieval.
-  
-## Payload Example
 
-Here's an example of a typical payload that the Concierge App expects:
+## API Endpoints
 
-```json
-{
-    "personId": 12345,
-    "destination": "5"
-}
-```
-Here's an example of a typical payload that the Concierge App produces:
+The Concierge App provides a set of RESTful API endpoints for interaction:
 
-```json
-{
-    "personId": 12345,
-    "destination": "5",
-    "preferredRoute": "elevator"
-}
-```
+- **`POST /access`**: 
+  - **Description**: Receives an access log (entry event) and processes it.
+  - **Payload**: 
+    ```json
+    {
+        "personId": 12345,
+        "destination": "5"
+    }
+    ```
+  - **Response**: 204 No Content (on successful processing)
+
+- **`POST /exit`**:
+  - **Description**: Receives an exit log and processes it.
+  - **Payload**: 
+    ```json
+    {
+        "personId": 12345,
+        "destination": "OUT",
+        "preferredRoute": "elevator"
+    }
+    ```
+  - **Response**: 204 No Content (on successful processing)
+
+## Event Processing
+
+In the Concierge App, event processing is a crucial feature, especially when dealing with real-time data streams. Here's a breakdown of the Kafka topics the app interacts with:
+
+#### Input Topics:
+- **`lobby`**: This topic captures entry-related events. The `AccessLogService` processes these events and then sends the processed data to the `entrance` topic.
+- **`exit`**: This topic captures exit-related events. The `ExitLogService` processes these events and then sends the processed data to the `external` topic.
+
+#### Output Topics:
+- **`entrance`**: Once the entry events from the `lobby` topic are processed, the data is sent here.
+- **`external`**: Once the exit events from the `exit` topic are processed, the data is sent here.
+
 ## Monitoring and Metrics 📊
 
 You can access the captured metrics in real-time by navigating to the endpoint `/q/metrics`.
