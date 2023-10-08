@@ -1,7 +1,7 @@
-{{- if .Values.prometheus.servicemonitor.enabled }}
+{{- if .Values.prometheus.podmonitor.enabled }}
 ---
 apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
+kind: PodMonitor
 metadata:
   name: {{ include "concierge-app.fullname" . }}
   namespace: {{ .Values.prometheus.namespace }}
@@ -12,10 +12,10 @@ spec:
   namespaceSelector:
     matchNames:
       - {{ .Values.namespace }}
-  endpoints:
+  podMetricsEndpoints:
     - interval: 15s
       path: /q/metrics
-      port: tcp-8080
+      targetPort: 8080
       scheme: http
   selector:
     matchLabels:

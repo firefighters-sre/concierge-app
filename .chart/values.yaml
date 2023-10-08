@@ -28,6 +28,16 @@ buildconfig:
 istag:
   enabled: true
 
+prometheus:
+  namespace: kafka-logging
+  rules:
+    enabled: true
+    severity: warning
+  servicemonitor:
+    enabled: true
+  podmonitor:
+    enabled: false
+
 hpa:
   enabled: false
   cpuTarget: 200m
@@ -35,13 +45,6 @@ hpa:
 
 pdb:
   enabled: false
-
-prometheus:
-  rules:
-    enabled: false
-    severity: warning
-  servicemonitor:
-    enabled: false
 
 # service mesh
 istio:

@@ -3,16 +3,19 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: concierge-app-alerts
-  namespace: {{ .Values.namespace }}
+  name: {{ include "concierge-app.fullname" . }}-alerts
+  namespace: {{ .Values.prometheus.namespace }}
+  labels:
+    role: alert-rules
+    app: prometheus
 spec:
   groups:
-  - name: concierge-app.rules
+  - name: {{ include "concierge-app.fullname" . }}.rules
     rules:
-    - alert: ConciergeAppNotAvailable
+    - alert: {{ include "concierge-app.fullname" . }} Not Available
       annotations:
-        message: 'Concierge App in namespace {{ .Values.namespace  }} is not available for the last 1 minutes.'
-      expr: (1 - absent(kube_pod_status_ready{condition="true",namespace="{{ .Values.namespace  }}"} * on(pod) group_left(label_app_kubernetes_io_component) kube_pod_labels{label_app_kubernetes_io_component="concierge-app",namespace="{{ .Values.namespace }}"})) == 0
+        message: '{{ include "concierge-app.fullname" . }} in namespace {{ .Values.namespace  }} is not available for the last 1 minutes.'
+      expr: (1 - absent(kube_pod_status_ready{condition="true",namespace="{{ .Values.namespace  }}"} * on(pod) group_left(label_app_kubernetes_io_component) kube_pod_labels{label_app_kubernetes_io_component="{{ include "concierge-app.fullname" . }}",namespace="{{ .Values.namespace }}"})) == 0
       for: 1m
       labels:
         severity: {{ .Values.prometheus.rules.severity | default "critical" }}

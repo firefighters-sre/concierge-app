@@ -25,7 +25,7 @@ spec:
     metadata:
       annotations:
         prometheus.io/scrape: 'true'
-        prometheus.io/path: '/metrics'
+        prometheus.io/path: '/q/metrics'
         prometheus.io/port: '8080'
         rollme: {{ randAlphaNum 5 | quote }}
         {{- if .Values.istio.enabled }}
