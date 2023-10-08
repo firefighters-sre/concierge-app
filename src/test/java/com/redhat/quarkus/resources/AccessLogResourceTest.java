@@ -65,7 +65,7 @@ public class AccessLogResourceTest {
     logToSend.setPersonId(1L);
     logToSend.setEntryTime("09:00");
     logToSend.setExitTime("17:00");
-    logToSend.setDestination("A");
+    logToSend.setDestination("1");
 
     // Call the endpoint under test.
     given()

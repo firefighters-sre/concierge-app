@@ -6,6 +6,10 @@ import com.redhat.quarkus.model.AccessLog;
 import com.redhat.quarkus.model.MoveLog;
 
 import org.jboss.logging.Logger;
+
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Timed;
+
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import jakarta.inject.Inject;
@@ -24,16 +28,21 @@ public class AccessLogResource {
     @Channel("entrance-rest")
     Emitter<MoveLog> accessEmitter;
 
-    @Inject
-    Logger logger;
+    private static final Logger LOG = Logger.getLogger(AccessLogResource.class);
 
     @POST
+    @Timed(name = "processLobbyPostTime", description = "Time taken to process a lobby POST call.", unit = MetricUnits.MILLISECONDS)
     public void processLobbyEvent(AccessLog accessLog) {
         MoveLog moveLog = new MoveLog();
         moveLog.setDestination(accessLog.getDestination());
         moveLog.setPersonId(accessLog.getPersonId());
         moveLog.setPreferredRoute("elevator");
-        logger.infof("Sending %s to Elevator", moveLog.toString());
+        LOG.infof(
+            "Processing lobby event: Person ID: %s, Entry Time: %s, Destination: %s",
+            accessLog.getPersonId(),
+            accessLog.getEntryTime(),
+            accessLog.getDestination()
+        );
         CompletionStage<Void> ack = accessEmitter.send(moveLog);
     }
 

@@ -12,7 +12,8 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 - [X] **Enhance `MoveLog` with `preferredRoute` Attribute**: Add a preferredRoute attribute to the MoveLog class.
 - [X] **Deliver `MoveLog` to Kafka `entrance` Topic**: Send processed messages to the Kafka topic named `entrance`.
 ### 1.1
-- [ ] **Monitoring & Alerting**: Set up monitoring tools to keep track of the app's performance and health.
+- [X] **Monitoring**: Set up monitoring tools to keep track of the app's performance and health.
+- [ ] **Alerting**: Set up alert tools to keep track of the app's performance and health.
 - [ ] **Centralized Logging**: Integrate with a centralized logging system for better traceability.
 - [ ] **API Documentation**: Document all exposed APIs and endpoints for better clarity.
 - [ ] **Helm Chart Creation**: Design and implement a Helm chart for streamlined deployments of the `concierge-app` on Kubernetes clusters.
@@ -47,9 +48,29 @@ Here's an example of a typical payload that the Concierge App produces:
     "preferredRoute": "stairs"
 }
 ```
+## Monitoring and Metrics 📊
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+You can access the captured metrics in real-time by navigating to the endpoint `/q/metrics`.
+
+### Key Metrics:
+
+#### 1. **AccessLogResource Metrics**:
+
+- **`processLobbyPostTime`**:
+  - **Description**: Measures the time taken to process a lobby POST call in the `AccessLogResource` class.
+  - **Metrics**:
+    - **count**: Number of times the method has been invoked.
+    - **sum**: Total time taken for all invocations.
+    - **max**: Maximum time taken for a single invocation of the method.
+
+#### 2. **AccessLogService Metrics**:
+
+- **`processLobbyEventTime`**:
+  - **Description**: Measures the time taken to process a lobby event in the `AccessLogService` class.
+  - **Metrics**:
+    - **count**: Number of times the method has been invoked.
+    - **sum**: Total time taken for all invocations.
+    - **max**: Maximum time taken for a single invocation of the method.
 
 ## Running the application in dev mode
 
@@ -93,3 +114,6 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 You can then execute your native executable with: `./target/qrk-fire-archetype-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
+
+This project uses Quarkus, the Supersonic Subatomic Java Framework.
+If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
