@@ -24,6 +24,13 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 ### 1.0.3
 - [ ] **SLOs and SLAs**: Define and implement Service Level Objectives (SLOs) and Service Level Agreements (SLAs) for the access services.
 - [ ] **Alerting**: Set up alert tools to keep track of the app's performance and health.
+### 1.0.4
+- [ ] **Error Budget Automation**: Implement automation routines to monitor and alert on Error Budget consumption. This includes:
+  - [ ] Automated reporting on Error Budget consumption.
+  - [ ] Proactive alerts when approaching the Error Budget limit.
+  - [ ] Triggering automated remediation actions if certain thresholds are crossed (e.g., rolling back a deployment).
+  - [ ] Integration with CI/CD pipelines to halt new releases if the Error Budget is exceeded.
+  - [ ] Periodic reviews to adjust thresholds and actions based on observed system behavior and evolving requirements.
 ### 1.1
 - [ ] **Stairs**: Add stairs as preferredRoute.
 - [ ] **Monitoring**: Set up monitoring tools to keep track of the app's performance and health.
