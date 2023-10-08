@@ -1,4 +1,5 @@
 package com.redhat.quarkus.service;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
@@ -63,11 +64,11 @@ public class AccessLogServiceTest {
         logConsumer.subscribe(Collections.singleton("entrance"));
 
         // Create an example AccessLog object to send to Kafka
-        AccessLog logToSend = new AccessLog();
-        logToSend.setRecordId(1L);
-        logToSend.setPersonId(1L);
-        logToSend.setEntryTime("09:00");
-        logToSend.setDestination("1");
+        AccessLog logToSend = new AccessLog(1L, "1");
+        assertNotNull(logToSend.getRecordId());
+        assertNotNull(logToSend.getPersonId());
+        assertNotNull(logToSend.getEntryTime());
+        assertNotNull(logToSend.getDestination());
 
         logProducer.send(new ProducerRecord<>("lobby", logToSend));
 
