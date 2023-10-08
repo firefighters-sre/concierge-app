@@ -1,4 +1,4 @@
-{{- if .Values.prometheus.slas.fire.enabled }}
+{{- if .Values.prometheus.fireincident.slos }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
