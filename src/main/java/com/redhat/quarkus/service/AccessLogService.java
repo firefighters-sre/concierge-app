@@ -27,7 +27,8 @@ public class AccessLogService {
         moveLog.setPersonId(accessLog.getPersonId());
         moveLog.setPreferredRoute("elevator");
         LOG.infof(
-            "Processing lobby event: Person ID: %s, Entry Time: %s, Destination: %s",
+            "Processing lobby event [%s]: Person ID: %s, Entry Time: %s, Destination: %s",
+            accessLog.getRecordId(),
             accessLog.getPersonId(),
             accessLog.getEntryTime(),
             accessLog.getDestination()

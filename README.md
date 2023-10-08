@@ -14,10 +14,7 @@ Here's an example of a typical payload that the Concierge App expects:
 
 ```json
 {
-    "recordId": 123456,
     "personId": 12345,
-    "entryTime": "2023-10-08T09:00:00Z",
-    "exitTime": "2023-10-08T17:00:00Z",
     "destination": "5"
 }
 ```
@@ -27,7 +24,7 @@ Here's an example of a typical payload that the Concierge App produces:
 {
     "personId": 12345,
     "destination": "5",
-    "preferredRoute": "stairs"
+    "preferredRoute": "elevator"
 }
 ```
 ## Monitoring and Metrics 📊
@@ -49,6 +46,24 @@ You can access the captured metrics in real-time by navigating to the endpoint `
 
 - **`processLobbyEventTime`**:
   - **Description**: Measures the time taken to process a lobby event in the `AccessLogService` class.
+  - **Metrics**:
+    - **count**: Number of times the method has been invoked.
+    - **sum**: Total time taken for all invocations.
+    - **max**: Maximum time taken for a single invocation of the method.
+
+#### 3. **ExitLogResource Metrics**:
+
+- **`processExitPostTime`**:
+  - **Description**: Measures the time taken to process an exit POST call in the `ExitLogResource` class.
+  - **Metrics**:
+    - **count**: Number of times the method has been invoked.
+    - **sum**: Total time taken for all invocations.
+    - **max**: Maximum time taken for a single invocation of the method.
+
+#### 4. **ExitLogService Metrics**:
+
+- **`processExitEventTime`**:
+  - **Description**: Measures the time taken to process an exit event in the `ExitLogService` class.
   - **Metrics**:
     - **count**: Number of times the method has been invoked.
     - **sum**: Total time taken for all invocations.

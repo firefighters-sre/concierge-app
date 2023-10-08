@@ -5,19 +5,21 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 ## TODO List
 - [X] **Process Kafka `AccesLog` in `lobby` Topic Events**: Capture and process events from the Kafka topic named `lobby`.
 - [X] **Enhance `MoveLog` with `preferredRoute` Attribute**: Add a preferredRoute attribute to the MoveLog class.
-- [X] **Deliver `MoveLog` to Kafka `entrance` Topic**: Send processed messages to the Kafka topic named `entrance`.
+- [X] **Deliver `MoveLog` to Kafka `entrance` Topic**: Send processed messages from `lobby` to the Kafka topic named `entrance`.
 ### 1.1
 - [X] **Monitoring**: Set up monitoring tools to keep track of the app's performance and health.
   - [X] **Entrance Rate**: A meter to measure the rate of people entering the building.
-  - [ ] **Exit Rate** A meter to measure the rate of people exiting the building during the evacuation.
- - [ ] **Logging**: Set up monitoring tools to keep track of the app's performance and health.
-  - [X] **Person Entry**: A log entry every time a person enters the building, capturing details like person ID, name, type (visitor/employee), and timestamp.
-  - [ ] **Person Exit**: A log entry every time a person exits the building during the evacuation, capturing similar details as the entry log.
+  - [X] **Exit Rate** A meter to measure the rate of people exiting the building during the evacuation.
+- [X] **Logging**: Set up monitoring tools to keep track of the app's performance and health.
+  - [X] **Person Entry**: A log entry every time a person enters the building.
+  - [X] **Person Exit**: A log entry every time a person exits the building during the evacuation.
 - [X] **Helm Chart Creation**: Design and implement a Helm chart for streamlined deployments of the `concierge-app` on Kubernetes clusters.
-- [ ] **Process Kafka `OutLog` in `out` Topic Events**: Capture and process events from the Kafka topic named `out`.
+- [X] **Process Kafka `MoveLog` in `exit` Topic Events**: Capture and process events from the Kafka topic named `exit`.
+- [X] **Deliver `ExitLog` to Kafka `external` Topic**: Send processed messages from `exit` to the Kafka topic named `external`.
 - [ ] **SLOs and SLAs**: Define and implement Service Level Objectives (SLOs) and Service Level Agreements (SLAs) for the access services.
 - [ ] **Alerting**: Set up alert tools to keep track of the app's performance and health.
 ### 1.2
+- [ ] **Stairs**: Add stairs as preferredRoute.
 - [ ] **Monitoring**: Set up monitoring tools to keep track of the app's performance and health.
    - [ ] **Current Evacuation Status**A gauge that can be set to 1 during an active evacuation and 0 otherwise. This helps in easily determining if an evacuation is in progress.
   - [ ] **Evacuation Completion Time**: A timer to measure the total time taken from the start of the evacuation until the building is confirmed empty.
