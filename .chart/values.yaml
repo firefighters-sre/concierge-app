@@ -40,6 +40,9 @@ prometheus:
   slas:
     enabled: false
     severity: critical
+  fireincident:
+    slos: true
+    slas: false
 
 hpa:
   enabled: false
