@@ -20,7 +20,7 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 - [X] **Deliver `ExitLog` to Kafka `external` Topic**: Send processed messages from `exit` to the Kafka topic named `external`.
 - [X] **Automatic AccessLog ID Generation**: For every new access log entry, generate a unique identifier automatically.
 - [X] **API Documentation**: Document all exposed APIs and endpoints for better clarity.
-
+- [X] **Health Endpoint Integration**: Integrated `smallrye-health` to provide health check endpoints for application monitoring.
 ### 1.0.3
 - [ ] **SLOs and SLAs**: Define and implement Service Level Objectives (SLOs) and Service Level Agreements (SLAs) for the access services.
 - [ ] **Alerting**: Set up alert tools to keep track of the app's performance and health.
