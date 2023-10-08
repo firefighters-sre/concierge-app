@@ -41,7 +41,7 @@ public class AccessLogServiceTest {
     @BeforeEach
     void setUp() {
         logConsumer = new KafkaConsumer<>(consumerConfig(), new StringDeserializer(), new ObjectMapperDeserializer<>(MoveLog.class));
-        logProducer = new KafkaProducer<>(kafkaConfig, new StringSerializer(), new ObjectMapperSerializer());
+        logProducer = new KafkaProducer<>(kafkaConfig, new StringSerializer(), new ObjectMapperSerializer<>());
     }
 
     @AfterEach
