@@ -39,7 +39,7 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 - [X] **Define Estimated Evacuation Time Formula**: Develop a formula to predict the estimated evacuation time based on the current occupancy of the building and the processing capacity of the `concierge_app`.
 - [ ] **Implement SLOs, SLAs, and Alerts related to the fire incident**:
   - [X] **Evacuation Time SLO**: Monitor evacuation time ensuring it's below 1 minute during fire incidents.
-  - [ ] **Evacuation Time SLA**: Trigger review if average evacuation time exceeds 5 minutes.
+  - [X] **Evacuation Time SLA**: Trigger review if average evacuation time exceeds 5 minutes.
   evacuation protocol.
 
 ### 1.0.6

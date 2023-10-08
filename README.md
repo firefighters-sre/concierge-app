@@ -107,6 +107,10 @@ In order to ensure a high-quality service and set clear expectations for our use
    - **Objective**: Ensure less than 0.1% of all API requests result in errors.
    - **Alerting**: Monitoring is in place to notify if the error rate exceeds the limit.
 
+4. **Evacuation Time SLO**:
+   - **Objective**: Ensure the average time taken to evacuate the building during a fire drill or incident does not exceed 5 minutes.
+   - **Alerting**: Prometheus rules are established to monitor and raise alerts if the average evacuation time surpasses the threshold.
+
 ### Service Level Agreements (SLAs)
 
 1. **Availability SLA**: 
@@ -114,6 +118,9 @@ In order to ensure a high-quality service and set clear expectations for our use
 
 2. **Latency SLA**: 
    - **Agreement**: If the average response time exceeds 200ms for over an hour, affected customers will receive service credits.
+
+3. **Evacuation Time SLA**:
+   - **Agreement**: If the average evacuation time exceeds 5 minutes during an incident, a review and necessary changes in the evacuation protocol will be implemented.
 
 ## Running the application in dev mode
 
