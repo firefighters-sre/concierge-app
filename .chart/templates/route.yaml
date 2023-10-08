@@ -1,0 +1,25 @@
+{{- if and (eq .Values.route true) (ne .Values.istio.enabled true) }}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "concierge-app.fullname" . }}
+  labels:
+    {{- include "concierge-app.labels" . | nindent 4 }}
+spec:
+  port:
+    targetPort: tcp-8080
+  to:
+    kind: Service
+    name: {{ include "concierge-app.fullname" . }}
+    weight: 100
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  wildcardPolicy: None
+status:
+  ingress:
+    - conditions:
+        - status: 'True'
+          type: Admitted
+{{ end }}

@@ -1,0 +1,35 @@
+{{- if .Values.hpa.enabled }}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "concierge-app.fullname" . }}
+  labels:
+    {{- include "concierge-app.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    {{- if .Values.deploymentConfig }}
+    apiVersion: v1
+    kind: DeploymentConfig
+    {{- else }}
+    apiVersion: apps/v1
+    kind: Deployment
+    {{- end }}
+    name: {{ include "concierge-app.fullname" . }}
+  minReplicas: {{ .Values.replicas.min }}
+  maxReplicas: {{ .Values.replicas.max }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: AverageValue
+          averageValue: {{ .Values.hpa.cpuTarget }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageValue: {{ .Values.hpa.memTarget }}
+{{- end }}
+

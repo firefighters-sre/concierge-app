@@ -1,0 +1,17 @@
+{{- if .Values.prometheus.servicemonitor.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "concierge-app.fullname" . }}
+  labels:
+    {{- include "concierge-app.labels" . | nindent 4 }}
+spec:
+  endpoints:
+    - interval: 30s
+      port: tcp-8080
+      scheme: http
+  selector:
+    matchLabels:
+      deploymentconfig: {{ include "concierge-app.fullname" . }}
+{{ end }}

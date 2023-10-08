@@ -1,0 +1,13 @@
+apiVersion: v2
+name: concierge-app
+description: concierge-app
+type: application
+version: 1.0.0
+appVersion: 1.0.0
+kubeVersion: '>=1.11.0-0'
+home: https://github.com/firefighters-sre/building-app
+keywords:
+  - sre
+  - concierge
+maintainers:
+  - name: gsampaio

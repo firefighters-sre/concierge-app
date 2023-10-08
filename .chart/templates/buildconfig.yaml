@@ -1,0 +1,48 @@
+{{- if .Values.buildconfig.enabled }}
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: ''
+    app.openshift.io/vcs-uri: {{ .Values.buildconfig.git.uri | quote }}
+    openshift.io/generated-by: OpenShiftWebConsole
+  name: {{ include "concierge-app.fullname" . }}
+  labels:
+    app: {{ include "concierge-app.fullname" . }}
+    app.kubernetes.io/component: {{ include "concierge-app.fullname" . }}
+    app.kubernetes.io/instance: {{ include "concierge-app.fullname" . }}
+    app.kubernetes.io/name: {{ include "concierge-app.fullname" . }}
+    app.kubernetes.io/part-of: {{ include "concierge-app.fullname" . }}
+    app.openshift.io/runtime: {{ .Values.buildconfig.runtime }}
+    app.openshift.io/runtime-version: {{ .Values.buildconfig.runtimeVersion }}
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: '{{ include "concierge-app.fullname" . }}:latest'
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: openshift
+        name: '{{ .Values.buildconfig.runtime }}:{{ .Values.buildconfig.runtimeVersion }}'
+  source:
+    type: Git
+    git:
+      uri: {{ .Values.buildconfig.git.uri | quote }}
+    contextDir: /
+  triggers:
+    - type: Generic
+      generic:
+        secretReference:
+          name: {{ include "concierge-app.fullname" . }}-generic-webhook-secret
+    - type: GitHub
+      github:
+        secretReference:
+          name: {{ include "concierge-app.fullname" . }}-github-webhook-secret
+    - type: ImageChange
+    - type: ConfigChange
+  runPolicy: Serial
+{{ end }}
