@@ -1,0 +1,32 @@
+{{- if .Values.prometheus.slas.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "concierge-app.fullname" . }}-slas
+  namespace: {{ .Values.prometheus.namespace }}
+  labels:
+    role: alert-rules
+    app: prometheus
+spec:
+  groups:
+  - name: {{ include "concierge-app.fullname" . }}.slas.rules
+    rules:
+    # Availability: If uptime drops below 99.5% in a 24-hour window
+    - alert: {{ include "concierge-app.fullname" . }} SLA Breach - Low Availability
+      annotations:
+        message: '{{ include "concierge-app.fullname" . }} in namespace {{ .Values.namespace }} has breached the SLA for uptime over the past 24 hours.'
+      expr: (1 - avg_over_time(up{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[24h])) > 0.005
+      for: 1h
+      labels:
+        severity: {{ .Values.prometheus.slas.severity | default "critical" }}
+
+    # Latency: If average response time exceeds 200ms for over an hour
+    - alert: {{ include "concierge-app.fullname" . }} SLA Breach - High Latency
+      annotations:
+        message: '{{ include "concierge-app.fullname" . }} in namespace {{ .Values.namespace }} has breached the SLA for latency over the past hour.'
+      expr: rate(http_request_duration_seconds_sum{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[1h]) / rate(http_request_duration_seconds_count{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[1h]) > 0.2
+      for: 1h
+      labels:
+        severity: {{ .Values.prometheus.slas.severity | default "critical" }}
+{{ end }}

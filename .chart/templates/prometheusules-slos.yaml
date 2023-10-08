@@ -1,0 +1,41 @@
+{{- if .Values.prometheus.slos.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "concierge-app.fullname" . }}-slos
+  namespace: {{ .Values.prometheus.namespace }}
+  labels:
+    role: alert-rules
+    app: prometheus
+spec:
+  groups:
+  - name: {{ include "concierge-app.fullname" . }}.slos.rules
+    rules:
+    # Availability: 99.5% uptime over a 1-day window.
+    - alert: {{ include "concierge-app.fullname" . }} Low Availability
+      annotations:
+        message: '{{ include "concierge-app.fullname" . }} in namespace {{ .Values.namespace }} has been unavailable for more than 0.5% over the past 24 hours.'
+      expr: (1 - avg_over_time(up{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[24h])) > 0.005
+      for: 30m
+      labels:
+        severity: {{ .Values.prometheus.slos.severity | default "critical" }}
+
+    # API Response Time: Average response time for API requests should be under 200ms.
+    - alert: {{ include "concierge-app.fullname" . }} High API Response Time
+      annotations:
+        message: '{{ include "concierge-app.fullname" . }} in namespace {{ .Values.namespace }} has an average response time of more than 200ms in the last 10 minutes.'
+      expr: rate(http_request_duration_seconds_sum{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[10m]) / rate(http_request_duration_seconds_count{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[10m]) > 0.2
+      for: 10m
+      labels:
+        severity: {{ .Values.prometheus.slos.severity | default "warning" }}
+
+    # Error Rate: Less than 0.1% of all API requests should result in errors (4xx and 5xx responses).
+    - alert: {{ include "concierge-app.fullname" . }} High Error Rate
+      annotations:
+        message: '{{ include "concierge-app.fullname" . }} in namespace {{ .Values.namespace }} has an error rate of more than 0.1% in the last 10 minutes.'
+      expr: rate(http_requests_total{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}", status=~"4..|5.."}[10m]) / rate(http_requests_total{namespace="{{ .Values.namespace }}", app="{{ include "concierge-app.fullname" . }}"}[10m]) > 0.001
+      for: 10m
+      labels:
+        severity: {{ .Values.prometheus.slos.severity | default "warning" }}
+{{ end }}

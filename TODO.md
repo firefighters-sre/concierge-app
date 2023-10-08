@@ -22,8 +22,12 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 - [X] **API Documentation**: Document all exposed APIs and endpoints for better clarity.
 - [X] **Health Endpoint Integration**: Integrated `smallrye-health` to provide health check endpoints for application monitoring.
 ### 1.0.3
-- [ ] **SLOs and SLAs**: Define and implement Service Level Objectives (SLOs) and Service Level Agreements (SLAs) for the access services.
-- [ ] **Alerting**: Set up alert tools to keep track of the app's performance and health.
+- [X] **Implement Basic SLOs, SLAs and Alerting**
+  - [X] **Availability SLO**: Ensure 99.9% uptime over a 30-day window and create Prometheus rules for alerting.
+  - [X] **Latency SLO**: Ensure API response times are under 200ms and event processing times are within 500ms.
+  - [X] **Error Rate SLO**: Ensure less than 0.1% of all API requests result in errors.
+  - [X] **Availability SLA**: Implement a service credit system for downtime that falls below the agreed availability of 99.9%.
+  - [X] **Latency SLA**: Implement a service credit for average response time exceeding 200ms for over an hour.
 ### 1.0.4
 - [ ] **Error Budget Automation**: Implement automation routines to monitor and alert on Error Budget consumption. This includes:
   - [ ] Automated reporting on Error Budget consumption.
@@ -31,7 +35,13 @@ The Concierge App is a Quarkus-based application primarily designed for managing
   - [ ] Triggering automated remediation actions if certain thresholds are crossed (e.g., rolling back a deployment).
   - [ ] Integration with CI/CD pipelines to halt new releases if the Error Budget is exceeded.
   - [ ] Periodic reviews to adjust thresholds and actions based on observed system behavior and evolving requirements.
-### 1.1
+### Backlog
+- [ ] **Throughput SLO**: Ensure the system handles at least 1000 API requests and processes at least 500 events per second.
+- [ ] **Data Accuracy SLO**: Ensure less than 0.01% discrepancy between input events and processed events' data.  
+- [ ] **Support Response Time SLA**: Implement a service credit system for failure to meet response times for various priority issues.
+- [ ] **Data Recovery SLA**: Implement a service credit for recovery times exceeding 4 hours.
+- [ ] **Maintenance Notification SLA**: Implement a service credit for failure to notify about maintenance 72 hours in advance.
+- [ ] **Service Restoration SLA**: Implement a service credit for service restoration times exceeding 2 hours..
 - [ ] **Stairs**: Add stairs as preferredRoute.
 - [ ] **Monitoring**: Set up monitoring tools to keep track of the app's performance and health.
    - [ ] **Current Evacuation Status**: A gauge that can be set to 1 during an active evacuation and 0 otherwise. This helps in easily determining if an evacuation is in progress.
