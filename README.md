@@ -13,10 +13,11 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 - [X] **Deliver `MoveLog` to Kafka `entrance` Topic**: Send processed messages to the Kafka topic named `entrance`.
 ### 1.1
 - [X] **Monitoring**: Set up monitoring tools to keep track of the app's performance and health.
-- [ ] **Alerting**: Set up alert tools to keep track of the app's performance and health.
 - [ ] **Centralized Logging**: Integrate with a centralized logging system for better traceability.
 - [ ] **API Documentation**: Document all exposed APIs and endpoints for better clarity.
 - [ ] **Helm Chart Creation**: Design and implement a Helm chart for streamlined deployments of the `concierge-app` on Kubernetes clusters.
+- [ ] **Alerting**: Set up alert tools to keep track of the app's performance and health.
+### 1.2
 - [ ] **Store Access Log**: Save the access log entries into the database under the `AccessLog` table.
 - [ ] **Retrieve Access Logs**: Implement functionality to fetch access logs from the `AccessLog` table.
 - [ ] **Automatic AccessLog ID Generation**: For every new access log entry, generate a unique identifier automatically.
