@@ -89,6 +89,32 @@ You can access the captured metrics in real-time by navigating to the endpoint `
     - **sum**: Total time taken for all invocations.
     - **max**: Maximum time taken for a single invocation of the method.
 
+## Service Level Objectives and Agreements
+
+In order to ensure a high-quality service and set clear expectations for our users, we've defined the following Service Level Objectives (SLOs) and Service Level Agreements (SLAs):
+
+### Service Level Objectives (SLOs)
+
+1. **Availability SLO**: 
+   - **Objective**: Ensure 99.9% uptime over a 10-minute window.
+   - **Alerting**: Prometheus rules have been set up to monitor and alert in case of any breaches.
+
+2. **Latency SLO**: 
+   - **Objective**: Ensure API response times are under 200ms and event processing times are within 500ms.
+   - **Alerting**: Prometheus rules are in place to monitor and alert if the latency goes beyond the set thresholds.
+
+3. **Error Rate SLO**: 
+   - **Objective**: Ensure less than 0.1% of all API requests result in errors.
+   - **Alerting**: Monitoring is in place to notify if the error rate exceeds the limit.
+
+### Service Level Agreements (SLAs)
+
+1. **Availability SLA**: 
+   - **Agreement**: If the uptime drops below 99.8% in a 10-minute window, affected customers will receive service credits.
+
+2. **Latency SLA**: 
+   - **Agreement**: If the average response time exceeds 200ms for over an hour, affected customers will receive service credits.
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
