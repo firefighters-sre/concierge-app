@@ -12,14 +12,32 @@ The Concierge App is a Quarkus-based application primarily designed for managing
 - [X] **Enhance `MoveLog` with `preferredRoute` Attribute**: Add a preferredRoute attribute to the MoveLog class.
 - [X] **Deliver `MoveLog` to Kafka `entrance` Topic**: Send processed messages to the Kafka topic named `entrance`.
 ### 1.1
+- [ ] **Monitoring & Alerting**: Set up monitoring tools to keep track of the app's performance and health.
+- [ ] **Centralized Logging**: Integrate with a centralized logging system for better traceability.
+- [ ] **API Documentation**: Document all exposed APIs and endpoints for better clarity.
+- [ ] **Helm Chart Creation**: Design and implement a Helm chart for streamlined deployments of the `concierge-app` on Kubernetes clusters.
 - [ ] **Store Access Log**: Save the access log entries into the database under the `AccessLog` table.
 - [ ] **Retrieve Access Logs**: Implement functionality to fetch access logs from the `AccessLog` table.
 - [ ] **Automatic AccessLog ID Generation**: For every new access log entry, generate a unique identifier automatically.
-- [ ] **Prometheus Metrics**: Export prometheus metrics.
 - [ ] **Process Kafka `registration` Topic Events**: Capture and process events from the Kafka topic named `registration`.
 - [ ] **Store Person Information**: Save the person's data into the database under the `Person` table.
 - [ ] **Automatic Person ID Generation**: For every new person's data, generate a unique identifier automatically.
 - [ ] **Retrieve Person Information**: Implement functionality to fetch details about a person from the `Person` table.
+- [ ] **Integration with Building and Mobility Apps**: Ensure seamless data flow between the Concierge App and the other microservices.
+
+## Payload Example
+
+Here's an example of a typical payload that the Concierge App expects:
+
+```json
+{
+    "recordId": 123456,
+    "personId": 12345,
+    "entryTime": "2023-10-08T09:00:00Z",
+    "exitTime": "2023-10-08T17:00:00Z",
+    "destination": "Floor 5"
+}
+```
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
