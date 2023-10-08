@@ -3,10 +3,11 @@
 The Concierge App is a Quarkus-based application primarily designed for managing access logs and security-related data. Its core functionality revolves around processing events from specific Kafka topics, storing relevant information in the database, and managing unique identifiers for different entities like persons and access logs.
 
 ## TODO List
+### 1.0
 - [X] **Process Kafka `AccesLog` in `lobby` Topic Events**: Capture and process events from the Kafka topic named `lobby`.
 - [X] **Enhance `MoveLog` with `preferredRoute` Attribute**: Add a preferredRoute attribute to the MoveLog class.
 - [X] **Deliver `MoveLog` to Kafka `entrance` Topic**: Send processed messages from `lobby` to the Kafka topic named `entrance`.
-### 1.1
+### 1.0.1
 - [X] **Monitoring**: Set up monitoring tools to keep track of the app's performance and health.
   - [X] **Entrance Rate**: A meter to measure the rate of people entering the building.
   - [X] **Exit Rate** A meter to measure the rate of people exiting the building during the evacuation.
@@ -14,11 +15,13 @@ The Concierge App is a Quarkus-based application primarily designed for managing
   - [X] **Person Entry**: A log entry every time a person enters the building.
   - [X] **Person Exit**: A log entry every time a person exits the building during the evacuation.
 - [X] **Helm Chart Creation**: Design and implement a Helm chart for streamlined deployments of the `concierge-app` on Kubernetes clusters.
+### 1.0.2
 - [X] **Process Kafka `MoveLog` in `exit` Topic Events**: Capture and process events from the Kafka topic named `exit`.
 - [X] **Deliver `ExitLog` to Kafka `external` Topic**: Send processed messages from `exit` to the Kafka topic named `external`.
+### 1.0.3
 - [ ] **SLOs and SLAs**: Define and implement Service Level Objectives (SLOs) and Service Level Agreements (SLAs) for the access services.
 - [ ] **Alerting**: Set up alert tools to keep track of the app's performance and health.
-### 1.2
+### 1.1
 - [ ] **Stairs**: Add stairs as preferredRoute.
 - [ ] **Monitoring**: Set up monitoring tools to keep track of the app's performance and health.
    - [ ] **Current Evacuation Status**A gauge that can be set to 1 during an active evacuation and 0 otherwise. This helps in easily determining if an evacuation is in progress.
