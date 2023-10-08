@@ -67,7 +67,6 @@ public class AccessLogServiceTest {
         logToSend.setRecordId(1L);
         logToSend.setPersonId(1L);
         logToSend.setEntryTime("09:00");
-        logToSend.setExitTime("17:00");
         logToSend.setDestination("1");
 
         logProducer.send(new ProducerRecord<>("lobby", logToSend));

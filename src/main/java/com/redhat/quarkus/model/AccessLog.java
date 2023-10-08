@@ -4,7 +4,6 @@ public class AccessLog {
     private Long recordId;
     private Long personId;
     private String entryTime;
-    private String exitTime;
     private String destination;
 
     public Long getRecordId() {
@@ -31,14 +30,6 @@ public class AccessLog {
         this.entryTime = entryTime;
     }
 
-    public String getExitTime() {
-        return exitTime;
-    }
-
-    public void setExitTime(String exitTime) {
-        this.exitTime = exitTime;
-    }
-
     public String getDestination() {
         return destination;
     }
@@ -53,7 +44,6 @@ public class AccessLog {
                 "recordId=" + recordId +
                 ", personId=" + personId +
                 ", entryTime='" + entryTime + '\'' +
-                ", exitTime='" + exitTime + '\'' +
                 ", destination='" + destination + '\'' +
                 '}';
     }
