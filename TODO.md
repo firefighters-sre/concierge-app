@@ -29,12 +29,15 @@ The Concierge App is a Quarkus-based application primarily designed for managing
   - [X] **Availability SLA**: Implement a service credit system for downtime that falls below the agreed availability of 99.8% in a 10-minute window.
   - [X] **Latency SLA**: Implement a service credit for average response time exceeding 200ms for over an hour.
 ### 1.0.4
+- [ ] **SLO/SLA prevention Automation**: Implement automation routines to monitor and alert on SLO/SLA disruption. 
+### 1.0.5
+- [ ] **SLO/SLA related to the fire incident**:
+### 1.0.6
 - [ ] **Error Budget Automation**: Implement automation routines to monitor and alert on Error Budget consumption. This includes:
   - [ ] Automated reporting on Error Budget consumption.
   - [ ] Proactive alerts when approaching the Error Budget limit.
   - [ ] Triggering automated remediation actions if certain thresholds are crossed (e.g., rolling back a deployment).
   - [ ] Integration with CI/CD pipelines to halt new releases if the Error Budget is exceeded.
-  - [ ] Periodic reviews to adjust thresholds and actions based on observed system behavior and evolving requirements.
 ### Backlog
 - [ ] **Throughput SLO**: Ensure the system handles at least 1000 API requests and processes at least 500 events per second.
 - [ ] **Data Accuracy SLO**: Ensure less than 0.01% discrepancy between input events and processed events' data.  
