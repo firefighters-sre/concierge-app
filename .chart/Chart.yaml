@@ -11,3 +11,7 @@ keywords:
   - concierge
 maintainers:
   - name: gsampaio
+dependencies:
+- name: quarkus-app-chart
+  version: "1.0.0"
+  repository: "https://firefighters-sre.github.io/helm-charts/"

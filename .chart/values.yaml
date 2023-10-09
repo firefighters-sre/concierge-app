@@ -1,7 +1,13 @@
 # Default values for concierge-app.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+quarkus-app-chart:
+  nameOverride: concierge-app
+  fullnameOverride: concierge-app
+
+nameOverride: concierge-app
 fullnameOverride: concierge-app
+
 namespace: helm-test
 
 # OpenShift objects
@@ -22,7 +28,7 @@ buildconfig:
   runtime: java
   runtimeVersion: openjdk-17-ubi8
   git:
-    uri: 'https://github.com/firefighters-sre/concierge-app'
+    repo: 'https://github.com/firefighters-sre/concierge-app'
 
 # use the image specified above as tag (else tag overridden in pipeline say)
 istag:
