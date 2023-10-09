@@ -12,7 +12,7 @@ spec:
   groups:
   - name: {{ include "quarkus-app.fullname" . }}.slos.rules
     rules:
-    # Availability: Ensures that the "quarkus-app.fullname" has an uptime of 99.9% over a 10-minute window.
+    # Availability: Ensures that the application has an uptime of 99.9% over a 10-minute window.
     - alert: {{ include "quarkus-app.fullname" . }} Availability Below Threshold
       annotations:
         message: '{{ include "quarkus-app.fullname" . }} in namespace {{ .Values.namespace }} has been unavailable for more than 0.1% in the last 10 minutes.'
