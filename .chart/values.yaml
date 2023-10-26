@@ -4,12 +4,12 @@
 nameOverride: concierge-app
 fullnameOverride: concierge-app
 
-namespace: helm-test
+namespace: quarkus-dev
 
 quarkus-app-chart:
   nameOverride: concierge-app
   fullnameOverride: concierge-app
-  namespace: helm-test
+  namespace: quarkus-dev
   
   # OpenShift objects
   route: false
