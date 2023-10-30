@@ -1,4 +1,4 @@
-{{- if .Values.prometheus.fireincident.slos }}
+{{- if .Values.prometheus.fireincident.slos.enabled }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
@@ -34,5 +34,5 @@ spec:
         ) > 300
       for: 1m
       labels:
-        severity: {{ .Values.prometheus.slos.severity | default "warning" }}
+        severity: {{ .Values.prometheus.fireincident.slos.severity | default "warning" }}
 {{ end }}
