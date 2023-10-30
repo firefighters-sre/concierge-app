@@ -55,19 +55,19 @@ quarkus-app-chart:
       enabled: true
     podmonitor:
       enabled: false
+    slos:
+      enabled: true
+      severity: warning
+    slas:
+      enabled: false
+      severity: critical
 
 prometheus:
   namespace: kafka-logging
-  servicemonitor:
-    enabled: true
-  podmonitor:
-    enabled: false
-  slos:
-    enabled: true
-    severity: warning
-  slas:
-    enabled: false
-    severity: critical
   fireincident:
-    slos: true
-    slas: false
+    slos:
+      enabled: true
+      severity: warning
+    slas:
+      enabled: false
+      severity: critical
